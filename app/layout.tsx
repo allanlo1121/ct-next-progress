@@ -1,15 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google"
-
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { NavMenu } from "@/components/site-nav"
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+export const metadata = {
+  title: "现场进度展示",
+  description: "盾构区间进度管理与现场进度展示",
+}
 
 export default function RootLayout({
   children,
@@ -17,13 +13,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
-    >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="zh-CN" suppressHydrationWarning>
+      <body className="h-screen overflow-hidden">
+        <ThemeProvider>
+          <NavMenu />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

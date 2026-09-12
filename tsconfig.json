@@ -30,6 +30,6 @@
     "**/*.mts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+,     "app/tunnel/page-back.tsx", "app/tunnel/tunnel-edit.tsx"  ],
   "exclude": ["node_modules"]
 }

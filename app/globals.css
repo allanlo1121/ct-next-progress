@@ -4,126 +4,1116 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * 企业视觉主题
+ *
+ * 企业标准色：
+ * Pantone 293C
+ * RGB 0 108 188
+ * HEX #006CBC
+ * OKLCH oklch(0.5241 0.1498 250.35)
+ *
+ * 企业辅助色：
+ * Pantone 281C  / #0A1D64
+ * Pantone 1805C / #B10012
+ * Pantone 877C  / #C0C0C0
+ */
+
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  /* 字体 */
+  --font-heading: var(--font-sans);
+
+  /* 页面基础颜色 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* 卡片 */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* 弹出层 */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* 主色 */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* 次要颜色 */
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  /* 弱化颜色 */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* 强调颜色 */
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* 危险状态 */
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* 警告状态 */
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  /* 严重状态 */
+  --color-critical: var(--critical);
+  --color-critical-foreground: var(--critical-foreground);
+
+  /* 成功状态 */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  /* 信息状态 */
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* 边框、输入框、焦点环 */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /*
+   * 企业蓝色阶
+   *
+   * 使用方法：
+   * bg-brand-950
+   * text-brand-700
+   * border-brand-300
+   */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+
+  /* 企业辅助色 */
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-red: var(--brand-red);
+  --color-brand-silver: var(--brand-silver);
+
+  /* 工业蓝色阶 */
+  --color-industrial-50: var(--industrial-50);
+  --color-industrial-100: var(--industrial-100);
+  --color-industrial-200: var(--industrial-200);
+  --color-industrial-300: var(--industrial-300);
+  --color-industrial-400: var(--industrial-400);
+  --color-industrial-500: var(--industrial-500);
+  --color-industrial-600: var(--industrial-600);
+  --color-industrial-700: var(--industrial-700);
+  --color-industrial-800: var(--industrial-800);
+  --color-industrial-900: var(--industrial-900);
+
+  /* Dashboard / Surface
+   *
+   * 用于仪表盘背景、卡片、弹出层等。
+   */
+
+  --color-dashboard-background: var(--dashboard-background);
+  --color-dashboard-surface: var(--dashboard-surface);
+  --color-dashboard-surface-muted: var(--dashboard-surface-muted);
+  --color-dashboard-border: var(--dashboard-border);
+  --color-dashboard-foreground: var(--dashboard-foreground);
+  --color-dashboard-muted-foreground: var(--dashboard-muted-foreground);
+
+  /* 图表颜色 */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+
+  /* 侧边栏 */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* TBM 运行状态 */
+  --color-tbm-rotation-indicator: var(--tbm-rotation-indicator);
+  --color-tbm-advance: var(--tbm-advance);
+  --color-tbm-assembly: var(--tbm-assembly);
+  --color-tbm-stop: var(--tbm-stop);
+  --color-tbm-fault: var(--tbm-fault);
+  --color-tbm-offline: var(--tbm-offline);
+  --color-tbm-unknown: var(--tbm-unknown);
+
+  /* 圆角 */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+  /*
+   * 企业标准蓝色阶
+   *
+   * 原始企业规范：
+   * 100% #006CBC
+   * 90%  #1076C1
+   * 80%  #2982C7
+   * 70%  #428ECD
+   * 60%  #5C9BD3
+   * 50%  #75A7D8
+   * 40%  #90B6DF
+   * 30%  #9EC2E5
+   * 20%  #B8D1EB
+   * 10%  #E2EEF8
+   */
+
+  /*
+ * 企业品牌蓝
+ * 工业 UI 调整版
+ */
+
+  --brand-50: oklch(0.9738 0.0086 247.91);
+  --brand-100: oklch(0.9431 0.0186 242.97);
+
+  --brand-200: oklch(0.866 0.038 247);
+  --brand-300: oklch(0.809 0.055 247);
+  --brand-400: oklch(0.752 0.071 247);
+  --brand-500: oklch(0.696 0.087 247);
+  --brand-600: oklch(0.647 0.103 247);
+  --brand-700: oklch(0.61 0.118 247);
+  --brand-800: oklch(0.579 0.13 247);
+  --brand-900: oklch(0.55 0.141 248);
+
+  --brand-950: oklch(0.5241 0.1498 250.35);
+
+  /*
+ * Industrial / Petrol
+ */
+
+  --industrial-50: oklch(0.965 0.012 190);
+  --industrial-100: oklch(0.925 0.024 190);
+  --industrial-200: oklch(0.85 0.044 190);
+  --industrial-300: oklch(0.76 0.065 190);
+  --industrial-400: oklch(0.675 0.079 190);
+  --industrial-500: oklch(0.59 0.083 190);
+  --industrial-600: oklch(0.51 0.078 195);
+  --industrial-700: oklch(0.435 0.071 200);
+  --industrial-800: oklch(0.365 0.061 205);
+  --industrial-900: oklch(0.3 0.05 210);
+
+  /* Dashboard / Surface
+   *
+   * 用于仪表盘背景、卡片、弹出层等。
+   */
+
+  --dashboard-background: oklch(0.19 0.025 235);
+
+  --dashboard-surface: oklch(0.235 0.027 232);
+
+  --dashboard-surface-muted: oklch(0.275 0.025 230);
+
+  --dashboard-border: oklch(0.42 0.04 225);
+
+  --dashboard-foreground: oklch(0.94 0.01 220);
+
+  --dashboard-muted-foreground: oklch(0.68 0.02 220);
+  /*
+   * 企业辅助色
+   */
+
+  /* Pantone 281C / #0A1D64 */
+  --brand-navy: oklch(0.2741 0.1266 265.91);
+
+  /* Pantone 1805C / #B10012 */
+  --brand-red: oklch(0.4784 0.1948 26.8);
+
+  /* Pantone 877C / #C0C0C0 */
+  --brand-silver: oklch(0.8078 0 0);
+
+  /*
+   * 页面基础
+   */
+
+  --radius: 0.625rem;
+
+  /* #F7F9FC */
+  --background: oklch(0.9814 0.0045 258.32);
+
+  /* #172033 */
+  --foreground: oklch(0.2449 0.0388 264.35);
+
+  /*
+   * 卡片
+   */
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.6623 0.1295 228.25);
+
+  /*
+   * Popover、Dropdown、Dialog
+   */
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2449 0.0388 264.35);
+
+  /*
+   * 主要交互色
+   *
+   * 按钮、链接、选中项、进度条等。
+   */
+
+  --primary: var(--brand-950);
+  --primary-foreground: oklch(1 0 0);
+
+  /*
+   * 次要交互色
+   *
+   * 次按钮、标签、轻量操作。
+   */
+
+  --secondary: var(--brand-100);
+  --secondary-foreground: var(--brand-navy);
+
+  /*
+   * 弱化区域
+   */
+
+  /* #EEF3F8 */
+  --muted: oklch(0.9618 0.0086 247.91);
+
+  /* #64748B */
+  --muted-foreground: oklch(0.5544 0.0407 257.42);
+
+  /*
+   * 强调区域
+   *
+   * 适用于菜单 hover、表格选中、下拉选中。
+   */
+
+  --accent: var(--brand-100);
+  --accent-foreground: var(--brand-navy);
+
+  /*
+ * 状态颜色
+ *
+ * 参考 WinCC 状态显示配色
+ */
+
+  /*
+ * 一般 / Warning
+ * RGB: 234, 206, 33
+ * HEX: #EACE21
+ */
+  --warning: oklch(0.8496 0.1699 98.84);
+  --warning-foreground: oklch(0.2725 0.004 264.5);
+
+  /*
+ * 严重 / Critical
+ * RGB: 231, 121, 16
+ * HEX: #E77910
+ */
+  --critical: oklch(0.6884 0.1671 54.7);
+  --critical-foreground: oklch(1 0 0);
+
+  /*
+ * 危险 / Destructive
+ * RGB: 222, 56, 88
+ * HEX: #DE3858
+ */
+  --destructive: oklch(0.6009 0.201 15.16);
+  --destructive-foreground: oklch(1 0 0);
+
+  /*
+ * 成功 / Success
+ * RGB: 94, 209, 173
+ * HEX: #5ED1AD
+ */
+  --success: oklch(0.7842 0.1178 169.91);
+  --success-foreground: oklch(0.2725 0.004 264.5);
+
+  /*
+ * 信息 / Info
+ * RGB: 0, 80, 104
+ * HEX: #005068
+ */
+  --info: oklch(0.4019 0.0772 226.42);
+  --info-foreground: oklch(1 0 0);
+
+  /*
+   * 边框、输入框、焦点环
+   */
+
+  /* #D9E2EC */
+  --border: oklch(0.9089 0.0168 250.85);
+
+  --input: oklch(0.9089 0.0168 250.85);
+
+  --ring: var(--brand-950);
+
+  /*
+   * 图表色板
+   *
+   * 蓝色为主，黄色、绿色、红色用于突出状态。
+   */
+
+  --chart-1: var(--brand-950);
+  --chart-2: var(--brand-600);
+  --chart-3: var(--brand-navy);
+  --chart-4: var(--warning);
+  --chart-5: var(--success);
+  --chart-6: var(--brand-red);
+  --chart-7: var(--brand-400);
+
+  /*
+   * 侧边栏
+   */
+
+  /* #F1F6FB */
+  --sidebar: oklch(0.9708 0.0086 247.91);
+
+  /* #24324A */
+  --sidebar-foreground: oklch(0.3163 0.0472 260.84);
+
+  --sidebar-primary: var(--brand-950);
+  --sidebar-primary-foreground: oklch(1 0 0);
+
+  --sidebar-accent: var(--brand-100);
+  --sidebar-accent-foreground: var(--brand-navy);
+
+  /* #D4E0EB */
+  --sidebar-border: oklch(0.9009 0.0199 245.66);
+
+  --sidebar-ring: var(--brand-950);
+
+  /*
+   * TBM 专用状态色
+   */
+
+  /* 刀盘旋转短弧指示 */
+  --tbm-rotation-indicator: var(--warning);
+
+  /* 掘进：绿色 */
+  --tbm-advance: var(--success);
+
+  /* 拼装：企业蓝 */
+  --tbm-assembly: var(--brand-950);
+
+  /* 停机：#64748B */
+  --tbm-stop: oklch(0.52 0.025 255);
+
+  /* 故障：企业红 */
+  --tbm-fault: var(--brand-red);
+
+  /* 离线：#94A3B8 */
+  --tbm-offline: oklch(0.62 0.19 35);
+
+  /* 未知状态 */
+  --tbm-unknown: var(--brand-silver);
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+  /*
+   * 深色主题使用企业深蓝黑背景，
+   * 避免普通纯黑主题与企业蓝割裂。
+   */
+
+  /* #071326 */
+  --background: oklch(0.1874 0.0428 258.8);
+
+  /* 接近 #EDF4FB */
+  --foreground: oklch(0.964 0.012 246);
+
+  /*
+   * 卡片
+   */
+
+  /* #0D1D33 */
+  --card: oklch(0.2296 0.0482 256.74);
+  --card-foreground: oklch(0.964 0.012 246);
+
+  /*
+   * 弹出层
+   */
+
+  --popover: oklch(0.2296 0.0482 256.74);
+  --popover-foreground: oklch(0.964 0.012 246);
+
+  /*
+   * 主色
+   *
+   * 深色模式下使用企业蓝 70%，
+   * 比原始 #006CBC 更容易在暗背景上识别。
+   */
+
+  --primary: var(--brand-700);
+  --primary-foreground: oklch(1 0 0);
+
+  /*
+   * 次要颜色
+   */
+
+  /* #162B47 */
+  --secondary: oklch(0.287 0.0584 256.14);
+  --secondary-foreground: var(--brand-100);
+
+  /*
+   * 弱化区域
+   */
+
+  /* #13263E */
+  --muted: oklch(0.2657 0.0517 255.05);
+
+  /* #96A9BF */
+  --muted-foreground: oklch(0.7274 0.0385 252.17);
+
+  /*
+   * 强调区域
+   */
+
+  /* #173759 */
+  --accent: oklch(0.3312 0.0713 252.01);
+  --accent-foreground: var(--brand-100);
+
+  /*
+   * 危险状态
+   *
+   * 原色：#D52B3E
+   */
+
+  --destructive: oklch(0.5706 0.2035 21.39);
+  --destructive-foreground: oklch(1 0 0);
+
+  /*
+   * 警告状态
+   *
+   * 原色：#FBBF24
+   */
+
+  --warning: oklch(0.8369 0.1644 84.43);
+  --warning-foreground: oklch(0.2857 0.0639 53.81);
+
+  /*
+   * 成功状态
+   *
+   * 原色：#22C55E
+   */
+
+  --success: oklch(0.7227 0.192 149.58);
+
+  /* 深色背景上使用深绿色文字 */
+  --success-foreground: oklch(0.24 0.07 149);
+
+  --industrial-50: oklch(0.965 0.012 190);
+  --industrial-100: oklch(0.925 0.024 190);
+  --industrial-200: oklch(0.85 0.044 190);
+  --industrial-300: oklch(0.76 0.065 190);
+  --industrial-400: oklch(0.675 0.079 190);
+  --industrial-500: oklch(0.59 0.083 190);
+  --industrial-600: oklch(0.51 0.078 195);
+  --industrial-700: oklch(0.435 0.071 200);
+  --industrial-800: oklch(0.365 0.061 205);
+  --industrial-900: oklch(0.3 0.05 210);
+
+  --dashboard-background: oklch(0.19 0.025 235);
+
+  --dashboard-surface: oklch(0.235 0.027 232);
+
+  --dashboard-surface-muted: oklch(0.275 0.025 230);
+
+  --dashboard-border: oklch(0.42 0.04 225);
+
+  --dashboard-foreground: oklch(0.94 0.01 220);
+
+  --dashboard-muted-foreground: oklch(0.68 0.02 220);
+
+  /*
+   * 信息状态
+   */
+
+  --info: var(--brand-600);
+  --info-foreground: var(--background);
+
+  /*
+   * 边框与输入框
+   *
+   * 使用 OKLCH alpha 语法，不再依赖 RGB。
+   */
+
+  --border: oklch(0.8505 0.0453 249.39 / 18%);
+  --input: oklch(0.8505 0.0453 249.39 / 24%);
+  --ring: var(--brand-600);
+
+  /*
+   * 图表
+   */
+
+  --chart-1: var(--brand-600);
+  --chart-2: var(--brand-300);
+  --chart-3: var(--brand-700);
+  --chart-4: var(--warning);
+  --chart-5: var(--success);
+  --chart-6: oklch(0.65 0.2 22);
+  --chart-7: var(--brand-400);
+
+  /*
+   * 侧边栏
+   */
+
+  /* #09182B */
+  --sidebar: oklch(0.2071 0.0433 255.2);
+
+  /* #DBE7F3 */
+  --sidebar-foreground: oklch(0.9225 0.0208 248.05);
+
+  --sidebar-primary: var(--brand-700);
+  --sidebar-primary-foreground: oklch(1 0 0);
+
+  /* #153454 */
+  --sidebar-accent: oklch(0.3191 0.0682 251.43);
+  --sidebar-accent-foreground: var(--brand-100);
+
+  --sidebar-border: oklch(0.8505 0.0453 249.39 / 16%);
+  --sidebar-ring: var(--brand-600);
+
+  /*
+   * TBM 状态
+   */
+
+  --tbm-rotation-indicator: var(--warning);
+  --tbm-advance: var(--success);
+  --tbm-assembly: var(--brand-600);
+  --tbm-stop: oklch(0.66 0.025 255);
+  --tbm-fault: oklch(0.65 0.2 22);
+  --tbm-offline: oklch(0.7 0.18 38);
+  --tbm-unknown: oklch(0.7107 0.0351 256.79);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-background text-foreground;
-    }
-  html {
-    @apply font-sans;
-    }
+
+    min-height: 100vh;
+
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"]:not([aria-disabled="true"]),
+  a[href] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  ::selection {
+    background: oklch(0.8505 0.0453 249.39);
+    color: oklch(0.2741 0.1266 265.91);
+  }
+
+  .dark ::selection {
+    background: oklch(0.627 0.1214 246.42);
+    color: oklch(1 0 0);
+  }
+}
+
+/*
+ * 可直接使用的 Tailwind 类
+ *
+ * 企业色：
+ *
+ * bg-brand-950
+ * bg-brand-100
+ * text-brand-950
+ * text-brand-navy
+ * text-brand-red
+ * border-brand-300
+ *
+ * 通用状态：
+ *
+ * bg-success
+ * text-success
+ * bg-warning
+ * text-warning
+ * bg-destructive
+ * text-destructive
+ * bg-info
+ * text-info
+ *
+ * TBM 状态：
+ *
+ * text-tbm-advance
+ * text-tbm-assembly
+ * text-tbm-stop
+ * text-tbm-fault
+ * text-tbm-offline
+ *
+ * bg-tbm-advance
+ * bg-tbm-assembly
+ * bg-tbm-fault
+ *
+ * 图表示例：
+ *
+ * fill-chart-1
+ * stroke-chart-2
+ * text-chart-4
+ */
+
+.eyebrow {
+  color: var(--brand-950);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.site-nav {
+  background: color-mix(in oklch, white 92%, var(--brand-100));
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-nav-inner {
+  display: flex;
+  gap: 8px;
+  margin: 0 auto;
+  max-width: 1180px;
+  overflow-x: auto;
+  padding: 10px 32px;
+}
+
+.site-nav a {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  font-weight: 800;
+  min-height: 38px;
+  padding: 8px 14px;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  background: var(--brand-950);
+  border-color: var(--brand-950);
+  color: white;
+}
+
+.home-page,
+.manage-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    oklch(0.9814 0.0045 258.32),
+    oklch(0.9431 0.0186 242.97)
+  );
+  color: var(--foreground);
+  padding: 32px;
+}
+
+.home-header,
+.manage-topbar {
+  align-items: flex-start;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin: 0 auto 24px;
+  max-width: 1180px;
+}
+
+.home-header h1,
+.manage-topbar h1 {
+  color: var(--brand-navy);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 8px 0 14px;
+}
+
+.home-header p,
+.manage-topbar p,
+.panel-heading p,
+.form-heading p {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 760px;
+}
+
+.primary-link,
+.form-actions button,
+.inline-action {
+  align-items: center;
+  background: var(--brand-950);
+  border: 1px solid var(--brand-950);
+  border-radius: 8px;
+  color: white;
+  display: inline-flex;
+  font-size: 0.95rem;
+  font-weight: 700;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  text-decoration: none;
+}
+
+.primary-link svg,
+.form-actions svg,
+.inline-action svg,
+.icon-action svg {
+  height: 16px;
+  width: 16px;
+}
+
+.stat-grid,
+.overview-panel,
+.manage-shell,
+.date-definition-editor {
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.stat-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.stat-grid article {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+}
+
+.stat-grid svg {
+  color: var(--brand-950);
+  height: 24px;
+  width: 24px;
+}
+
+.stat-grid span {
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+}
+
+.stat-grid strong {
+  color: var(--brand-navy);
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+.overview-panel,
+.edit-form,
+.side-list {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.overview-panel {
+  overflow: hidden;
+}
+
+.date-definition-panel {
+  margin-bottom: 18px;
+}
+
+.panel-heading,
+.form-heading {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.panel-heading h2,
+.form-heading h2,
+.form-section h3 {
+  color: var(--brand-navy);
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 6px;
+}
+
+.tunnel-table {
+  display: grid;
+}
+
+.table-row {
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1.4fr 0.8fr 1.2fr 1fr 1.2fr;
+  padding: 14px 20px;
+}
+
+.date-definition-row {
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 0.7fr 1.15fr 1.15fr 0.9fr 1.6fr;
+  padding: 14px 20px;
+}
+
+.date-definition-row:last-child {
+  border-bottom: 0;
+}
+
+.date-definition-row span {
+  color: var(--foreground);
+  display: grid;
+  font-size: 0.95rem;
+  gap: 4px;
+  line-height: 1.5;
+  min-width: 0;
+}
+
+.table-row:last-child {
+  border-bottom: 0;
+}
+
+.table-row span {
+  color: var(--foreground);
+  display: grid;
+  font-size: 0.95rem;
+  gap: 4px;
+  min-width: 0;
+}
+
+.table-row small {
+  color: var(--muted-foreground);
+  font-size: 0.82rem;
+}
+
+.table-head {
+  background: var(--brand-100);
+}
+
+.table-head span {
+  color: var(--brand-navy);
+  font-weight: 800;
+}
+
+.manage-shell {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.side-list {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.side-list button {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--foreground);
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  text-align: left;
+}
+
+.side-list button.selected {
+  background: var(--brand-100);
+  border-color: var(--brand-300);
+}
+
+.side-list span,
+.form-heading span {
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+.edit-form {
+  overflow: hidden;
+}
+
+.form-section {
+  border-bottom: 1px solid var(--border);
+  padding: 20px;
+}
+
+.form-section:last-of-type {
+  border-bottom: 0;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid label {
+  color: var(--brand-navy);
+  display: grid;
+  font-size: 0.9rem;
+  font-weight: 700;
+  gap: 8px;
+}
+
+.form-grid .wide {
+  grid-column: 1 / -1;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--foreground);
+  font: inherit;
+  min-height: 40px;
+  padding: 8px 10px;
+}
+
+.form-grid input[readonly] {
+  color: var(--muted-foreground);
+}
+
+.form-grid textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.section-title-row,
+.line-panel legend {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inline-action {
+  background: var(--brand-100);
+  color: var(--brand-navy);
+}
+
+.line-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.line-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0;
+  padding: 16px;
+}
+
+.line-panel legend {
+  color: var(--brand-navy);
+  font-weight: 800;
+  margin-bottom: 12px;
+  padding: 0;
+  width: 100%;
+}
+
+.icon-action {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--brand-red);
+  display: inline-flex;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.icon-action:disabled {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+.form-actions {
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 20px;
+}
+
+.form-actions button:disabled {
+  opacity: 0.65;
+}
+
+@media (max-width: 860px) {
+  .home-page,
+  .manage-page {
+    padding: 18px;
+  }
+
+  .site-nav-inner {
+    padding: 10px 18px;
+  }
+
+  .home-header,
+  .manage-topbar,
+  .manage-shell {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .stat-grid,
+  .form-grid,
+  .table-row,
+  .date-definition-row {
+    grid-template-columns: 1fr;
+  }
+
+  .table-head {
+    display: none;
+  }
 }
