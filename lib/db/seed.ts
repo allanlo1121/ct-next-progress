@@ -3,7 +3,9 @@
 import type Database from "better-sqlite3"
 
 import type { DateDefinition } from "@/lib/date-definitions/definition"
-import { TunnelForm, TunnelLineForm } from "../tunnels/definition"
+import { TunnelForm, TunnelLine } from "../tunnels/definition"
+
+const now = new Date().toISOString()
 
 /**
  * 初始化系统默认数据。
@@ -122,7 +124,10 @@ function seedDefaultTunnel(db: Database.Database) {
     )
     .get() as { id: string } | undefined
 
+  console.log("existingTunnel:", existingTunnel)
+
   if (existingTunnel) {
+    console.log("Tunnel exists, skip seeding")
     return
   }
 
@@ -134,6 +139,8 @@ function seedDefaultTunnel(db: Database.Database) {
     description:
       "首次打开自动初始化，需在区间信息页面继续补充里程、环号和计划时间。",
     sort_order: 1,
+    created_at: now,
+    updated_at: now,
   }
 
   const insertTunnel = db.prepare(`
@@ -143,7 +150,9 @@ function seedDefaultTunnel(db: Database.Database) {
       full_name,
       line_mode,
       description,
-      sort_order
+      sort_order,
+      created_at,
+      updated_at
     )
     VALUES (
       @project_name,
@@ -151,11 +160,15 @@ function seedDefaultTunnel(db: Database.Database) {
       @full_name,
       @line_mode,
       @description,
-      @sort_order
+      @sort_order,
+      @created_at,
+      @updated_at
     )
   `)
 
-  const result = insertTunnel.run(tunnel)
+  const result = insertTunnel.run({
+    ...tunnel,
+  })
 
   const id = Number(result.lastInsertRowid)
 
@@ -175,8 +188,10 @@ function seedTunnelLines(db: Database.Database, tunnelId: number) {
       actual_start_date,
       actual_end_date,
       scheduled_start_date,
-      scheduled_end_date,
-      sort_order
+      scheduled_end_date,      
+      sort_order,
+      created_at,
+      updated_at
     )
     VALUES ( 
       @tunnel_id,
@@ -187,13 +202,15 @@ function seedTunnelLines(db: Database.Database, tunnelId: number) {
       @actual_end_date,
       @scheduled_start_date,
       @scheduled_end_date,
-      @sort_order
+      @sort_order,
+      @created_at,
+      @updated_at
     )
     ON CONFLICT(tunnel_id, name)
     DO NOTHING
   `)
 
-  const lines: TunnelLineForm[] = [
+  const lines: Omit<TunnelLine, "id">[] = [
     {
       tunnel_id: tunnelId,
       name: "左线",
@@ -208,6 +225,8 @@ function seedTunnelLines(db: Database.Database, tunnelId: number) {
       scheduled_end_date: null,
 
       sort_order: 1,
+      created_at: now,
+      updated_at: now,
     },
 
     {
@@ -224,10 +243,14 @@ function seedTunnelLines(db: Database.Database, tunnelId: number) {
       scheduled_end_date: null,
 
       sort_order: 2,
+      created_at: now,
+      updated_at: now,
     },
   ]
 
   for (const line of lines) {
-    statement.run(line)
+    statement.run({
+      ...line,
+    })
   }
 }

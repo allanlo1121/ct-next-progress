@@ -696,7 +696,7 @@
  * text-chart-4
  */
 
-.eyebrow {
+/* .eyebrow {
   color: var(--brand-950);
   font-size: 0.78rem;
   font-weight: 700;
@@ -738,7 +738,7 @@
   background: var(--brand-950);
   border-color: var(--brand-950);
   color: white;
-}
+} */
 
 .home-page,
 .manage-page {

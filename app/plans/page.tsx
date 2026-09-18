@@ -1,129 +1,38 @@
 import Link from "next/link"
-import { fetchTunnelWithLinesById } from "@/lib/tunnels/data"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { fetchTunnelLines } from "@/lib/tunnels/repository"
+import { LinkButton } from "@/components/base/link-button"
+import { PageHeader } from "@/components/base/page-header"
+import { fetchPlansByTunnelLineId } from "@/lib/plans/repository"
+import PlanEditor from "@/components/plan/plan-edit"
 
 export const dynamic = "force-dynamic"
 
 export default async function TunnelPlanPage() {
-  const tunnelLine = await fetchTunnelWithLinesById(1)
+  const tunnelLine = await fetchTunnelLines()
 
   if (!tunnelLine) {
     return null
   }
 
+  const leftPlans = await fetchPlansByTunnelLineId(tunnelLine[0].id)
+  const rightPlans = await fetchPlansByTunnelLineId(tunnelLine[1].id)
+
   return (
-    <main className="manage-page">
-      <header className="manage-topbar">
-        <div>
-          <span className="eyebrow">隧道区间进度计划</span>
-          <h1>区间及线路进度计划</h1>
-          <p></p>
-        </div>
-        <nav>
-          {/* <Link href="/">总览</Link> */}
-          <Link href={`/plans/${tunnelLine.id}/edit`}>修改区间进度计划信息</Link>
-        </nav>
-      </header>
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col">
+      <PageHeader
+        title="计划维护"
+        description="在此页面可以维护隧道区间的计划信息。"
+        actions={
+          <LinkButton href="/dashboard" variant="default" size="lg">
+            总览
+          </LinkButton>
+        }
+      />
 
-      <div className="manage-shell">
-        <aside className="side-list">
-          <button key={tunnelLine.id} type="button">
-            <strong>{tunnelLine.name}</strong>
-            <span>
-              {tunnelLine.full_name || tunnelLine.project_name || tunnelLine.id}
-            </span>
-          </button>
-        </aside>
-
-        <div>
-          <section className="grid grid-cols-2 gap-x-6 gap-y-4">
-            <div className="col-span-2">
-              <h3 className="mb-4 text-base font-semibold">
-                {tunnelLine?.full_name || ""}
-              </h3>
-            </div>
-            <div className="col-span-2">
-              <dt className="text-sm text-muted-foreground">项目名称</dt>
-              <dd className="mt-1 text-sm font-medium">
-                {tunnelLine?.project_name || ""}
-              </dd>
-            </div>
-
-            <div>
-              <dt className="text-sm text-muted-foreground">区间名称</dt>
-              <dd className="mt-1 text-sm font-medium">
-                {tunnelLine?.name || ""}
-              </dd>
-            </div>
-
-            <div>
-              <dt className="text-sm text-muted-foreground">线路模式</dt>
-              <dd className="mt-1 text-sm font-medium">
-                {tunnelLine?.line_mode === "double"
-                  ? "双线"
-                  : tunnelLine?.line_mode === "single"
-                    ? "单线"
-                    : ""}
-              </dd>
-            </div>
-          </section>
-
-          <div className="line-stack mt-8">
-            {tunnelLine.lines.map((line, index) => (
-              <section key={line.id} className="line-panel">
-                <h3 className="mb-4 text-base font-semibold">
-                  {line.name || `线路${index + 1}`}
-                </h3>
-
-                <dl className="grid grid-cols-2 gap-x-6 gap-y-4">
-                  <div>
-                    <dt className="text-sm text-muted-foreground">起始环号</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.start_ring ?? "-"}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-muted-foreground">结束环号</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.end_ring ?? "-"}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-muted-foreground">计划开工</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.scheduled_start_date || "-"}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-muted-foreground">计划竣工</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.scheduled_end_date || "-"}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-muted-foreground">实际开工</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.actual_start_date || "-"}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-muted-foreground">实际竣工</dt>
-                    <dd className="mt-1 text-sm font-medium">
-                      {line.actual_end_date || "-"}
-                    </dd>
-                  </div>
-                </dl>
-              </section>
-            ))}
-          </div>
-        </div>
+      <div className="grid min-h-0 w-full flex-1 grid-cols-2 gap-4 p-4">
+        <PlanEditor line={tunnelLine[0]} initialPlans={leftPlans} />
+        <PlanEditor line={tunnelLine[1]} initialPlans={rightPlans} />
       </div>
-    </main>
+    </div>
   )
 }

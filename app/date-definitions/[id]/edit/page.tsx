@@ -1,6 +1,6 @@
 import Form from "@/components/ui/date-definitions/edit-form"
 import Breadcrumbs from "@/components/ui/date-definitions/breadcrumbs"
-import { fetchDateDefinitionById } from "@/lib/date-definitions/data"
+import { fetchDateDefinitionById } from "@/lib/date-definitions/repository"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 

@@ -1,47 +1,31 @@
+import { PageHeader } from "@/components/base/page-header"
+import { LinkButton } from "@/components/base/link-button"
 
-import { CreateDateDefinition } from "@/components/ui/date-definitions/buttons";
-import Table from "@/components/ui/date-definitions/table"
-
+import Table from "@/components/date-definitions/table"
+import { fetchDateDefinitions } from "@/lib/date-definitions/repository"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "data-definitions",
 }
 
-export default async function Page(props: {
-  searchParams?: Promise<{
-    query?: string
-    page?: string
-  }>
-}) {
-  const searchParams = await props.searchParams
-  const query = searchParams?.query || ""
+export default async function Page() {
+
+
+const dateDefinitions = await fetchDateDefinitions()
 
   return (
-      <main className="manage-page">
-      <header className="manage-topbar">
-        <div>
-          <span className="eyebrow">统计日期</span>
-          <h1>统计日期维护</h1>
-          <p>选择统计日期的定义进行维护。</p>
-        </div>
-      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <CreateDateDefinition />
-      </div>
-
-     
-      </header>
-        <section className="overview-panel">
-        <div className="panel-heading">
-          <div>
-            <h2>待维护线路</h2>
-            <p>进度录入表单接入前，可先在区间修改中完善线路基础资料。</p>
-          </div>
-        </div>
-
-          <Table />
-   
-      </section>
-        </main>
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col">
+      <PageHeader
+        title="统计日期"
+        description="在此页面可以维护统计日期的定义。"
+        actions={
+          <LinkButton href="/dashboard" variant="default" size="lg">
+            总览
+          </LinkButton>
+        }
+      />
+      <Table dateDefinitions={dateDefinitions} />
+    </div>
   )
 }

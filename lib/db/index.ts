@@ -12,21 +12,25 @@ const dbPath = process.env.SQLITE_PATH ?? path.join(dataDir, "app.db")
 let db: Database.Database | null = null
 
 export function getDb() {
-  if (db) return db
+  if (db) {
+    return db
+  }
 
-  fs.mkdirSync(path.dirname(dbPath), {
-    recursive: true,
-  })
+  const instance = new Database(dbPath)
 
-  db = new Database(dbPath)
+  instance.pragma("journal_mode = WAL")
+  instance.pragma("foreign_keys = ON")
 
-  db.pragma("journal_mode = WAL")
-  db.pragma("foreign_keys = ON")
+  // 先完成所有迁移
+  runMigrations(instance)
 
-  runMigrations(db)
-  seedSystemData(db)
+  // 再初始化系统数据
+  seedSystemData(instance)
 
-  db.exec("PRAGMA optimize")
+  instance.pragma("optimize")
+
+  // 全部成功以后才暴露
+  db = instance
 
   return db
 }

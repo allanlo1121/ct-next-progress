@@ -67,8 +67,8 @@ const components: { title: string; href: string; description: string }[] = [
     description: "展示当前的进度信息。",
   },
   {
-    title: "进度修改",
-    href: "/progress",
+    title: "掘进管理",
+    href: "/ring-record",
     description: "修改当前的进度信息。",
   },
   {
@@ -92,7 +92,7 @@ export function NavMenu() {
   const pathname = usePathname()
 
   return (
-    <NavigationMenu className="h-12 w-full max-w-none sticky top-0 z-20 flex justify-center border-b border-brand-500 color-mix(in oklch, white 92%, var(--brand-100))">
+    <NavigationMenu className="top-0 z-20 h-12 w-full max-w-none flex-none shrink-0 justify-center border-b border-brand-500">
       <NavigationMenuList>
         {components.map((component) => {
           const active =

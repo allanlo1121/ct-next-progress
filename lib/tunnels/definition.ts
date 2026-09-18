@@ -6,6 +6,8 @@ export type Tunnel = {
   line_mode: string
   description: string | null
   sort_order: number
+  created_at: string
+  updated_at: string
 }
 
 export type TunnelForm = Omit<Tunnel, "id">
@@ -21,6 +23,8 @@ export type TunnelLine = {
   scheduled_start_date: string | null
   scheduled_end_date: string | null
   sort_order: number
+  created_at: string
+  updated_at: string
 }
 
 export type TunnelLineForm = Omit<TunnelLine, "id">

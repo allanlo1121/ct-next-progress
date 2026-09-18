@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS tunnels (
 
   description TEXT, -- 项目描述
 
-  sort_order INTEGER NOT NULL DEFAULT 0
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -41,6 +43,9 @@ CREATE TABLE IF NOT EXISTS tunnel_lines (
   scheduled_end_date TEXT,   -- 计划竣工日期，格式 YYYY-MM-DD
 
   sort_order INTEGER NOT NULL DEFAULT 0,
+
+ created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
   UNIQUE (tunnel_id, name)
 
