@@ -1,4 +1,5 @@
-import { DateDefinition, TbmPeriodType } from "../date-definitions/definition"
+import {  TbmPeriodType } from "../date-definitions/definition"
+import type { DateDefinition } from "../date-definitions/schema"
 import { CustomPeriod, getTbmPeriodInfo } from "../date-definitions/tbm-data"
 import { getDb } from "../db"
 import { getPlanRingCount } from "../plans/repository"

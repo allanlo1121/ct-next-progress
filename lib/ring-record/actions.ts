@@ -6,7 +6,6 @@ import { RingRecord, RingRecordInput } from "./definition"
 import {
   updateRingRecordStartAt,
   updateRingRecordStartAts,
-  updateSimpleRingRecord,
 } from "./repository"
 
 export async function createRingRecord(

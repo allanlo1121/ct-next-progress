@@ -1,8 +1,7 @@
-
-import type { DayStartOffset } from "./definition"
+// import type { DayStartOffset } from "./definition"
 
 export function formatDayDefinition(
-  dayStartOffset: DayStartOffset,
+  dayStartOffset: number,
   dayCutoffTime: number
 ) {
   if (dayStartOffset === -1) {
@@ -256,8 +255,6 @@ export function formatTimeS(s: number, format: TimeFormat = "HH-MM-SS") {
     .join(" ")
 }
 
-
-
 export function getDurationSeconds(
   startAt: string | null,
   endAt: string | null
@@ -276,7 +273,6 @@ export function getDurationSeconds(
   return Math.floor((end - start) / 1000)
 }
 
-
 export function getDurationFormat(
   startAt: string | null,
   endAt: string | null,
@@ -285,4 +281,31 @@ export function getDurationFormat(
   const duration = getDurationSeconds(startAt, endAt)
   if (duration === null) return ""
   return formatTimeS(duration, format)
+}
+
+export function toUtcIso(value: string | Date): string {
+  const date = value instanceof Date ? value : new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid datetime: ${value}`)
+  }
+
+  return date.toISOString()
+}
+
+
+export function toDatetimeLocalValue(
+  iso: string | null | undefined
+): string {
+  if (!iso) return ""
+
+  const date = new Date(iso)
+
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, "0")
+  const day = String(date.getDate()).padStart(2, "0")
+  const hour = String(date.getHours()).padStart(2, "0")
+  const minute = String(date.getMinutes()).padStart(2, "0")
+
+  return `${year}-${month}-${day}T${hour}:${minute}`
 }

@@ -1,67 +1,20 @@
 "use server"
 
-import { z } from "zod"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
-import { getDb } from "../db"
-
-const FormSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  day_start_offset: z.coerce
-    .number()
-    .int()
-    .min(-1, { message: "请在-1 0 1 之间选一个" })
-    .max(0, { message: "请在-1 0 1 之间选一个" }),
-  day_start_time: z.coerce
-    .number()
-    .int()
-    .min(0, { message: "请在 0 23 之间选一个" })
-    .max(23, { message: "请在 0 23 之间选一个" }),
-  week_start_offset: z.coerce
-    .number()
-    .int()
-    .min(-1, { message: "请在-1 0 1 之间选一个" })
-    .max(0, { message: "请在-1 0 1 之间选一个" }),
-  week_start_dow: z.coerce
-    .number()
-    .int()
-    .min(1, { message: "请在 1 7 之间选一个" })
-    .max(7, { message: "请在 1 7 之间选一个" }),
-  month_start_offset: z.coerce
-    .number()
-    .int()
-    .min(-1, { message: "请在-1 0 1 之间选一个" })
-    .max(0, { message: "请在-1 0 1 之间选一个" }),
-  month_start_day: z.coerce
-    .number()
-    .int()
-    .min(1, { message: "请在 1 31 之间选一个" })
-    .max(31, { message: "请在 1 31 之间选一个" }),
-  year_start_offset: z.coerce
-    .number()
-    .int()
-    .min(-1, { message: "请在-1 0 1 之间选一个" })
-    .max(0, { message: "请在-1 0 1 之间选一个" }),
-  year_start_month: z.coerce
-    .number()
-    .int()
-    .min(1, { message: "请在 1 12 之间选一个" })
-    .max(12, { message: "请在 1 12 之间选一个" }),
-  year_start_day: z.coerce
-    .number()
-    .int()
-    .min(1, { message: "请在 1 31 之间选一个" })
-    .max(31, { message: "请在 1 31 之间选一个" }),
-  is_default: z
-    .string()
-    .nullish()
-    .transform((value) => value === "on"),
-  sort_order: z.coerce.number().int().min(0, { message: "排序顺序不能小于 0" }),
-})
-
-const CreateDateDefinition = FormSchema.omit({ id: true })
-const UpdateDateDefinition = FormSchema.omit({ id: true })
+import { ActionResult } from "../types/action.type"
+import {
+  insertDateDefinition,
+  updateDateDefinition,
+  deleteDateDefinition,
+} from "./repository"
+import type {
+  CreateDateDefinitionForm,
+  UpdateDateDefinitionForm,
+} from "./schema"
+import {
+  CreateDateDefinitionFormSchema,
+  UpdateDateDefinitionFormSchema,
+} from "./schema"
 
 export type State = {
   errors?: {
@@ -81,13 +34,12 @@ export type State = {
   message?: string | null
 }
 
-export async function createDateDefinition(
-  prevState: State,
+export async function createDateDefinitionAction(
   formData: FormData
-) {
+): Promise<ActionResult> {
   // Validate form fields using Zod
   console.log("Form Data:", Object.fromEntries(formData.entries()))
-  const validatedFields = CreateDateDefinition.safeParse({
+  const validatedFields = CreateDateDefinitionFormSchema.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),
     day_start_time: formData.get("day_start_time"),
@@ -104,8 +56,12 @@ export async function createDateDefinition(
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
+    console.log(
+      "Validation errors:",
+      validatedFields.error.flatten().fieldErrors
+    )
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      success: false,
       message: "Missing Fields. Failed to Create Date-Definition.",
     }
   }
@@ -126,48 +82,48 @@ export async function createDateDefinition(
     sort_order,
   } = validatedFields.data
 
-  // Insert data into the database
-  try {
-    await getDb()
-      .prepare(
-        `INSERT INTO date_definitions (name, day_start_offset, day_start_time, week_start_offset, week_start_dow,month_start_offset, month_start_day, year_start_offset, year_start_month, year_start_day, is_default, sort_order)
-      VALUES (
-      @name, @day_start_offset, @day_start_time, @week_start_offset, @week_start_dow, @month_start_offset, @month_start_day, @year_start_offset, @year_start_month, @year_start_day, @is_default, @sort_order)`
-      )
-      .run({
-        name,
-        day_start_offset,
-        day_start_time,
-        week_start_offset,
-        week_start_dow,
-        month_start_offset,
-        month_start_day,
-        year_start_offset,
-        year_start_month,
-        year_start_day,
-        is_default: is_default ? 1 : 0,
-        sort_order,
-      })
-  } catch (error) {
-    // If a database error occurs, return a more specific error.
-    return {
-      message: "Database Error: Failed to Create Date-Definition.",
-    }
+  const input: CreateDateDefinitionForm = {
+    name,
+    day_start_offset,
+    day_start_time,
+    week_start_offset,
+    week_start_dow,
+    month_start_offset,
+    month_start_day,
+    year_start_offset,
+    year_start_month,
+    year_start_day,
+    is_default,
+    sort_order,
   }
 
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath("/date-definitions")
-  redirect("/date-definitions")
+  // Insert data into the database
+  try {
+    insertDateDefinition(input)
+    return {
+      success: true,
+      message: "Date definition created successfully.",
+    }
+  } catch (error) {
+    console.error("Failed to create date definition:", error)
+
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Failed to create date definition.",
+    }
+  }
 }
 
-export async function updateDateDefinition(
+export async function updateDateDefinitionAction(
   id: number,
-  prevState: State,
   formData: FormData
-) {
+): Promise<ActionResult> {
   console.log("Updating Date Definition with ID:", id)
   console.log("Form Data:", Object.fromEntries(formData.entries()))
-  const validatedFields = UpdateDateDefinition.safeParse({
+  const validatedFields = UpdateDateDefinitionFormSchema.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),
     day_start_time: formData.get("day_start_time"),
@@ -189,8 +145,8 @@ export async function updateDateDefinition(
     )
 
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Update Date-Definition.",
+      success: false,
+      message: "Validation failed. Missing or incorrect fields.",
     }
   }
 
@@ -211,42 +167,69 @@ export async function updateDateDefinition(
 
   console.log("Validated Fields:", validatedFields.data)
 
-  try {
-    await getDb()
-      .prepare(
-        `
-      UPDATE date_definitions
-      SET name = @name, day_start_offset = @day_start_offset, day_start_time = @day_start_time, week_start_offset = @week_start_offset, week_start_dow = @week_start_dow, month_start_offset = @month_start_offset, month_start_day = @month_start_day, year_start_offset = @year_start_offset, year_start_month = @year_start_month, year_start_day = @year_start_day, is_default = @is_default, sort_order = @sort_order
-      WHERE id = @id
-      `
-      )
-      .run({
-        name,
-        day_start_offset,
-        day_start_time,
-        week_start_offset,
-        week_start_dow,
-        month_start_offset,
-        month_start_day,
-        year_start_offset,
-        year_start_month,
-        year_start_day,
-        is_default: is_default ? 1 : 0,
-        sort_order,
-        id,
-      })
-  } catch (error) {
-    console.error("Failed to update date definition:", error)
-    return { message: "Database Error: Failed to Update Date-Definition." }
+  const input: UpdateDateDefinitionForm = {
+    name,
+    day_start_offset,
+    day_start_time,
+    week_start_offset,
+    week_start_dow,
+    month_start_offset,
+    month_start_day,
+    year_start_offset,
+    year_start_month,
+    year_start_day,
+    is_default,
+    sort_order,
   }
 
-  revalidatePath("/date-definitions")
-  redirect("/date-definitions")
+  try {
+    updateDateDefinition(id, input)
+    return {
+      success: true,
+      message: "Date definition updated successfully.",
+    }
+  } catch (error) {
+    console.error("Failed to update date definition:", error)
+
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Failed to update date definition.",
+    }
+  }
+
+  // Removed as it's now handled within the try-catch block above.
 }
 
-export async function deleteDateDefinition(id: number) {
-  await getDb()
-    .prepare(`DELETE FROM date_definitions WHERE id = @id`)
-    .run({ id })
+// export async function deleteDateDefinitionAction(
+//   id: number
+// ): Promise<ActionResult> {
+//   try {
+//     deleteDateDefinition(id)
+
+//     revalidatePath("/date-definitions")
+
+//     return {
+//       success: true,
+//       message: "Date definition deleted successfully.",
+//     }
+//   } catch (error) {
+//     console.error("Failed to delete date definition:", error)
+
+//     return {
+//       success: false,
+//       message:
+//         error instanceof Error
+//           ? error.message
+//           : "Failed to delete date definition.",
+//     }
+//   }
+// }
+
+export async function deleteDateDefinitionAction(id: number) {
+   deleteDateDefinition(id)
+
   revalidatePath("/date-definitions")
 }

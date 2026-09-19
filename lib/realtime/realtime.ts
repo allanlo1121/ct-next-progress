@@ -6,9 +6,17 @@ const listeners = new Set<Listener>()
 
 export function subscribe(listener: Listener) {
   listeners.add(listener)
+  console.log(
+    "[SSE] subscribed, listeners:",
+    listeners.size
+  )
 
   return () => {
     listeners.delete(listener)
+    console.log(
+      "[SSE] unsubscribed, listeners:",
+      listeners.size
+    )
   }
 }
 

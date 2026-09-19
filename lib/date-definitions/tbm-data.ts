@@ -1,24 +1,24 @@
 import {
   addDays,
   addMonths,
+  Day,
   differenceInCalendarWeeks,
   format,
   parseISO,
   startOfWeek,
 } from "date-fns"
 import { toZonedTime } from "date-fns-tz"
+import type { DateDefinition } from "./schema"
 import type {
-  DateDefinition,
-  DayStartOffset,
   TbmPeriodInfo,
   TbmPeriodType,
 } from "./definition"
-import type { Day } from "date-fns"
+
 
 
 export function getTbmDayInfo(
   date: Date = new Date(),
-  dayStartOffset: DayStartOffset = -1,
+  dayStartOffset: number = -1,
   dayCutoffTime: number = 19
 ): TbmPeriodInfo {
   const localDate = toZonedTime(date, "Asia/Shanghai")
@@ -55,9 +55,9 @@ export function getTbmDayInfo(
 
 export function getTbmMonthInfo(
   date: Date = new Date(),
-  monthStartOffset: -1 | 0 = -1,
+  monthStartOffset: number = -1,
   monthStartDay: number = 26,
-  dayStartOffset: DayStartOffset = -1,
+  dayStartOffset: number = -1,
   dayCutoffTime: number = 19
 ): TbmPeriodInfo {
   // 当前所属工作日
@@ -120,9 +120,9 @@ export function getTbmMonthInfo(
 
 export function getTbmWeekInfo(
   date: Date = new Date(),
-  weekStartOffset: -1 | 0 = -1,
-  weekStartDay: Day = 6,
-  dayStartOffset: DayStartOffset = -1,
+  weekStartOffset:number = -1,
+  weekStartDay: number = 6,
+  dayStartOffset: number = -1,
   dayCutoffTime: number = 19
 ): TbmPeriodInfo {
   // 当前所属 TBM 工作日
@@ -136,7 +136,7 @@ export function getTbmWeekInfo(
 
   // 当前统计周起始日
   const startDateValue = startOfWeek(workDate, {
-    weekStartsOn: weekStartDay,
+    weekStartsOn: weekStartDay as Day,
   })
 
   // 当前统计周最后一天
@@ -151,12 +151,12 @@ export function getTbmWeekInfo(
   const year = weekDateValue.getFullYear()
 
   const firstWeekStart = startOfWeek(new Date(year, 0, 1), {
-    weekStartsOn: weekStartDay,
+    weekStartsOn: weekStartDay as Day,
   })
 
   const week =
     differenceInCalendarWeeks(weekDateValue, firstWeekStart, {
-      weekStartsOn: weekStartDay,
+      weekStartsOn: weekStartDay as Day,
     }) + 1
 
   const weekDate = `${year}-W${String(week).padStart(2, "0")}`
@@ -186,9 +186,9 @@ export function getTbmWeekInfo(
 
 export function getTbmQuarterInfo(
   date: Date = new Date(),
-  monthStartOffset: -1 | 0 = -1,
+  monthStartOffset: number = -1,
   monthStartDay: number = 26,
-  dayStartOffset: DayStartOffset = -1,
+  dayStartOffset: number = -1,
   dayCutoffTime: number = 19
 ): TbmPeriodInfo {
   // 先获取当前所属 TBM 统计月
@@ -254,10 +254,10 @@ export function getTbmQuarterInfo(
 
 export function getTbmYearInfo(
   date: Date = new Date(),
-  yearStartOffset: -1 | 0 = 0,
+  yearStartOffset: number = 0,
   yearStartMonth: number = 1,
   yearStartDay: number = 1,
-  dayStartOffset: DayStartOffset = -1,
+  dayStartOffset: number = -1,
   dayCutoffTime: number = 19
 ): TbmPeriodInfo {
   // 当前所属 TBM 工作日
@@ -328,11 +328,11 @@ export function getTbmYearInfo(
 
 
 export type TbmPeriodOptions = {
-  dayStartOffset?: DayStartOffset
+  dayStartOffset?: number
   dayCutoffTime?: number
 
   weekStartOffset?: -1 | 0
-  weekStartDay?: Day
+  weekStartDay?: number
 
   monthStartOffset?: -1 | 0
   monthStartDay?: number
@@ -359,6 +359,8 @@ const defaultDefinition: DateDefinition = {
   year_start_day: 1,
   is_default: true,
   sort_order: 0,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
 }
 export type CustomPeriod = {
   label: string

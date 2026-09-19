@@ -1,6 +1,6 @@
 import { getDb } from "@/lib/db"
 import type { LineData } from "./definition"
-import type { DateDefinition } from "@/lib/date-definitions/definition"
+import type { DateDefinition } from "@/lib/date-definitions/schema"
 
 import { getLineProgress } from "./data"
 

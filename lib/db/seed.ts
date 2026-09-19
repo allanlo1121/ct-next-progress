@@ -2,7 +2,7 @@
 
 import type Database from "better-sqlite3"
 
-import type { DateDefinition } from "@/lib/date-definitions/definition"
+import type { DateDefinition } from "@/lib/date-definitions/schema"
 import { TunnelForm, TunnelLine } from "../tunnels/definition"
 
 const now = new Date().toISOString()
@@ -31,6 +31,8 @@ export function seedSystemData(db: Database.Database) {
 function seedDateDefinitions(db: Database.Database) {
   console.log("Seeding date definitions...")
 
+  const now = new Date().toISOString()
+
   const statement = db.prepare(`
     INSERT INTO date_definitions (  
       name,
@@ -49,7 +51,9 @@ function seedDateDefinitions(db: Database.Database) {
       year_start_day,
 
       is_default,
-      sort_order
+      sort_order,
+      created_at,
+      updated_at
     )
     VALUES (     
       @name,
@@ -68,7 +72,9 @@ function seedDateDefinitions(db: Database.Database) {
       @year_start_day,
 
       @is_default,
-      @sort_order
+      @sort_order,
+      @created_at,
+      @updated_at
     )
     ON CONFLICT(name) DO NOTHING
   `)
@@ -96,6 +102,8 @@ function seedDateDefinitions(db: Database.Database) {
 
       is_default: true,
       sort_order: 1,
+      created_at: now,
+      updated_at: now,
     },
   ]
 

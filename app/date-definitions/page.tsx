@@ -1,18 +1,21 @@
 import { PageHeader } from "@/components/base/page-header"
 import { LinkButton } from "@/components/base/link-button"
 
-import Table from "@/components/date-definitions/table"
 import { fetchDateDefinitions } from "@/lib/date-definitions/repository"
 import { Metadata } from "next"
+import { DateDefinitionCard } from "@/components/date-definitions/date-card"
+import { AddDateDefinitionCard } from "@/components/date-definitions/add-date-definition-card"
+import {
+  createDateDefinitionAction,
+  updateDateDefinitionAction,
+} from "@/lib/date-definitions/actions"
 
 export const metadata: Metadata = {
   title: "data-definitions",
 }
 
 export default async function Page() {
-
-
-const dateDefinitions = await fetchDateDefinitions()
+  const dateDefinitions = await fetchDateDefinitions()
 
   return (
     <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col">
@@ -25,7 +28,16 @@ const dateDefinitions = await fetchDateDefinitions()
           </LinkButton>
         }
       />
-      <Table dateDefinitions={dateDefinitions} />
+      <div className="grid grid-cols-3 gap-4 p-4">
+        {dateDefinitions.map((definition) => (
+          <DateDefinitionCard
+            key={definition.id}
+            definition={definition}
+            onSave={updateDateDefinitionAction}
+          />
+        ))}
+        <AddDateDefinitionCard onSave={createDateDefinitionAction} />
+      </div>
     </div>
   )
 }

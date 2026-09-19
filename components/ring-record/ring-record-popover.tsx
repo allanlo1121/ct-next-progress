@@ -13,6 +13,7 @@ import {
 import { toast } from "@/components/ui/toast"
 
 import type { RingRecord } from "@/lib/ring-record/definition"
+import { utcToBeijingInput } from "@/lib/date-definitions/utils";
 
 type RingRecordPopoverProps = {
   ring: RingRecord
@@ -57,6 +58,8 @@ export function RingRecordPopover({ ring, onSave }: RingRecordPopoverProps) {
     }
   }
 
+  console.log(ring)
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
@@ -82,7 +85,7 @@ export function RingRecordPopover({ ring, onSave }: RingRecordPopoverProps) {
               id={`start_at-${ring.id}`}
               name="start_at"
               type="datetime-local"
-              defaultValue={ring.start_at ?? ""}
+              defaultValue={utcToBeijingInput(ring.start_at ?? "")}
             />
           </div>
 
@@ -93,7 +96,7 @@ export function RingRecordPopover({ ring, onSave }: RingRecordPopoverProps) {
               id={`end_at-${ring.id}`}
               name="end_at"
               type="datetime-local"
-              defaultValue={ring.end_at ?? ""}
+              defaultValue={utcToBeijingInput(ring.end_at ?? "")}
             />
           </div>
 

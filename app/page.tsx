@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, GitBranch, MapPinned, Route } from "lucide-react"
-import { listTunnelWithLines } from "@/lib/tunnel"
+import { fetchTunnelWithLines } from "@/lib/tunnels/repository"
 
 export const dynamic = "force-dynamic"
 
@@ -11,7 +11,7 @@ function formatChainage(value: number | null) {
 
 export default function Page() {
   
-  const tunnels = listTunnelWithLines()
+  const tunnels = fetchTunnelWithLines()
   const lineCount = tunnels.reduce(
     (count, tunnel) => count + tunnel.lines.length,
     0
@@ -77,8 +77,8 @@ export default function Page() {
                 </span>
                 <span role="cell">{line.name}</span>
                 <span role="cell">
-                  {line.prefix || "DK"} {formatChainage(line.start_chainage)} -{" "}
-                  {formatChainage(line.end_chainage)}
+                  {/* {line.prefix || "DK"} {formatChainage(line.start_chainage)} -{" "}
+                  {formatChainage(line.end_chainage)} */}
                 </span>
                 <span role="cell">
                   {line.start_ring ?? 0} - {line.end_ring ?? "待补充"}

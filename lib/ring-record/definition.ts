@@ -5,8 +5,10 @@ export type RingRecord = {
   id: number
   tunnel_line_id: number
   ring_no: number
+  //UTC ISO 8601 formatted date-time string
   start_at: string
   end_at: string | null
+
   jue_duration: number
   pin_duration: number
   stop_duration: number
