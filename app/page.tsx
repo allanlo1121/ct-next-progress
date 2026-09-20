@@ -2,12 +2,11 @@ import Link from "next/link"
 import { ArrowRight, GitBranch, MapPinned, Route } from "lucide-react"
 import { fetchTunnelWithLines } from "@/lib/tunnels/repository"
 
-export const dynamic = "force-dynamic"
 
-function formatChainage(value: number | null) {
-  if (value === null || value === undefined) return "待补充"
-  return value.toFixed(3)
-}
+// function formatChainage(value: number | null) {
+//   if (value === null || value === undefined) return "待补充"
+//   return value.toFixed(3)
+// }
 
 export default function Page() {
   

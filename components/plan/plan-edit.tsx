@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState } from "react"
-import { saveNullRingRecord } from "@/lib/ring-record/actions"
+
 import { getDayCount } from "@/lib/date-definitions/utils"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { buildPlanDays } from "@/lib/plans/utils"
+
 
 import type { TunnelLine } from "@/lib/tunnels/definition"
 
@@ -92,7 +92,7 @@ export default function PlanEditor({
             plan_ring_count: Number(row.plan_ring_count),
           }))
 
-         console.log("Sorted plans:", plans)
+        //  console.log("Sorted plans:", plans)
 
         if (plans.length === 0) {
           toast.add({
@@ -111,7 +111,7 @@ export default function PlanEditor({
         )
 
         if (invalid) {
-           console.log("Invalid plans detected:", plans)
+          // console.log("Invalid plans detected:", plans)
           toast.add({
             title: "导入失败",
             description: "CSV 格式错误，请检查日期和计划环数",
@@ -122,7 +122,7 @@ export default function PlanEditor({
 
         plans.sort((a, b) => a.work_date.localeCompare(b.work_date))
 
-        console.log("Plans before setting state:", plans)
+        // console.log("Plans before setting state:", plans)
 
         setPlanDays(plans)
 

@@ -47,7 +47,7 @@ export async function fetchDateDefinitionById(
 export function insertDateDefinition(
   data: CreateDateDefinitionForm
 ): DateDefinition {
-  console.log("Inserting Date Definition:", data)
+  // console.log("Inserting Date Definition:", data)
   try {
     const db = getDb()
     const now = new Date().toISOString()

@@ -38,7 +38,7 @@ export async function createDateDefinitionAction(
   formData: FormData
 ): Promise<ActionResult> {
   // Validate form fields using Zod
-  console.log("Form Data:", Object.fromEntries(formData.entries()))
+  // console.log("Form Data:", Object.fromEntries(formData.entries()))
   const validatedFields = CreateDateDefinitionFormSchema.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),
@@ -121,8 +121,8 @@ export async function updateDateDefinitionAction(
   id: number,
   formData: FormData
 ): Promise<ActionResult> {
-  console.log("Updating Date Definition with ID:", id)
-  console.log("Form Data:", Object.fromEntries(formData.entries()))
+  // console.log("Updating Date Definition with ID:", id)
+  // console.log("Form Data:", Object.fromEntries(formData.entries()))
   const validatedFields = UpdateDateDefinitionFormSchema.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),

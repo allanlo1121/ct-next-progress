@@ -24,11 +24,13 @@ export function ProgressRealtime() {
     const eventSource = new EventSource("/api/events")
 
     eventSource.addEventListener("progress-updated-1", () => {
+      console.log("收到 progress-updated，准备 refresh")
       setLeftLastReceivedAt(Date.now())
       router.refresh()
     })
 
     eventSource.addEventListener("progress-updated-2", () => {
+      console.log("收到 progress-updated-2，准备 refresh")
       setRightLastReceivedAt(Date.now())
       router.refresh()
     })

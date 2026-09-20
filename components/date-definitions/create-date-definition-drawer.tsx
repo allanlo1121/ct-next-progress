@@ -26,7 +26,6 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { toast } from "@/components/ui/toast"
 
-import type { DateDefinition } from "@/lib/date-definitions/schema"
 
 type DateDefinitionDrawerProps = {
   onSave: (formData: FormData) => Promise<{ success: boolean }>

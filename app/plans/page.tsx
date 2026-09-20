@@ -4,7 +4,6 @@ import { PageHeader } from "@/components/base/page-header"
 import { fetchPlansByTunnelLineId } from "@/lib/plans/repository"
 import PlanEditor from "@/components/plan/plan-edit"
 
-export const dynamic = "force-dynamic"
 
 export default async function TunnelPlanPage() {
   const tunnelLines = await fetchTunnelLines()

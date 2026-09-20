@@ -6,7 +6,6 @@ import TunnelLineClient from "@/components/tunnel/tunnel-line-client"
 import { PageHeader } from "@/components/base/page-header"
 import { LinkButton } from "@/components/base/link-button"
 
-export const dynamic = "force-dynamic"
 
 export default async function TunnelPage() {
   const tunnelLine = await fetchTunnelWithLinesById(1)

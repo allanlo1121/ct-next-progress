@@ -1,24 +1,25 @@
-
 import { fetchTunnelLines } from "@/lib/tunnels/repository"
 import { fetchRingRecordsByTunnelLineId } from "@/lib/ring-record/repository"
 
 import { LinkButton } from "@/components/base/link-button"
 import { PageHeader } from "@/components/base/page-header"
-import RingRecordEditor from "@/components/ring-record/ring-record-editor";
+import RingRecordEditor from "@/components/ring-record/ring-record-editor"
 
-export const dynamic = "force-dynamic"
 
 export default async function TunnelProgressPage() {
-  const tunnelLine = await fetchTunnelLines()
+  const tunnelLines = await fetchTunnelLines()
 
-  if (!tunnelLine) {
-    return null
-  }
-  const leftRingRecords = await fetchRingRecordsByTunnelLineId(tunnelLine[0].id)
-  const rightRingRecords = await fetchRingRecordsByTunnelLineId(
-    tunnelLine[1].id
-  )
-  console.log(tunnelLine)
+  const leftLine = tunnelLines?.[0]
+  const rightLine = tunnelLines?.[1]
+  const leftRingRecords = leftLine
+    ? await fetchRingRecordsByTunnelLineId(leftLine.id)
+    : []
+  const rightRingRecords = rightLine
+    ? await fetchRingRecordsByTunnelLineId(rightLine.id)
+    : []
+
+  // console.log(tunnelLines)
+
   return (
     <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col">
       <PageHeader
@@ -32,8 +33,35 @@ export default async function TunnelProgressPage() {
       />
 
       <div className="grid min-h-0 w-full flex-1 grid-cols-2 gap-4 p-4">
-        <RingRecordEditor line={tunnelLine[0]} initialRingRecords={leftRingRecords} />
-        <RingRecordEditor line={tunnelLine[1]} initialRingRecords={rightRingRecords} />
+        {leftLine ? (
+          <RingRecordEditor
+            line={leftLine}
+            initialRingRecords={leftRingRecords}
+          />
+        ) : (
+          <EmptyRingRecordEditor title="左线" />
+        )}
+        {rightLine ? (
+          <RingRecordEditor
+            line={rightLine}
+            initialRingRecords={rightRingRecords}
+          />
+        ) : (
+          <EmptyRingRecordEditor title="右线" />
+        )}
+      </div>
+    </div>
+  )
+}
+
+function EmptyRingRecordEditor({ title }: { title: string }) {
+  return (
+    <div className="flex min-h-0 items-center justify-center rounded-lg border border-dashed">
+      <div className="text-center">
+        <div className="font-medium">{title}</div>
+        <div className="mt-1 text-sm text-muted-foreground">
+          暂无隧道线路数据
+        </div>
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table"
 
 import { updatePlanAction } from "@/lib/plans/actions"
-import type { Plan, PlanInput } from "@/lib/plans/definition"
+import type {PlanInput } from "@/lib/plans/definition"
 
 import { PlanPopover } from "./plan-popover"
 

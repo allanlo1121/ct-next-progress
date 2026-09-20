@@ -63,7 +63,7 @@ export default function RingRecordEditor({
       return
     }
 
-    console.log("Changed records:", changedRecords)
+    // console.log("Changed records:", changedRecords)
 
     try {
       setPending(true)
@@ -115,7 +115,7 @@ export default function RingRecordEditor({
             start_at: row.start_at.trim(),
           }))
 
-        console.log("Sorted records:", insertRingRecords)
+        // console.log("Sorted records:", insertRingRecords)
 
         if (insertRingRecords.length === 0) {
           toast.add({
@@ -134,7 +134,7 @@ export default function RingRecordEditor({
         )
 
         if (invalid) {
-          console.log("Invalid records detected:", insertRingRecords)
+          // console.log("Invalid records detected:", insertRingRecords)
           toast.add({
             title: "导入失败",
             description: "CSV 格式错误，请检查日期和计划环数",
@@ -168,7 +168,7 @@ export default function RingRecordEditor({
           ringMap.values()
         ).sort((a, b) => a.ring_no - b.ring_no)
 
-        console.log("Plans before setting state:", mergedRingRecords)
+        // console.log("Plans before setting state:", mergedRingRecords)
 
         setRingRecords(mergedRingRecords)
 

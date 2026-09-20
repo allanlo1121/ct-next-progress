@@ -88,7 +88,7 @@ export async function createDateDefinition(
   formData: FormData
 ) {
   // Validate form fields using Zod
-  console.log("Form Data:", Object.fromEntries(formData.entries()))
+  // console.log("Form Data:", Object.fromEntries(formData.entries()))
   const validatedFields = CreateDateDefinition.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),
@@ -167,8 +167,8 @@ export async function updateDateDefinition(
   prevState: State,
   formData: FormData
 ) {
-  console.log("Updating Date Definition with ID:", id)
-  console.log("Form Data:", Object.fromEntries(formData.entries()))
+  // console.log("Updating Date Definition with ID:", id)
+  // console.log("Form Data:", Object.fromEntries(formData.entries()))
   const validatedFields = UpdateDateDefinition.safeParse({
     name: formData.get("name"),
     day_start_offset: formData.get("day_start_offset"),
@@ -211,7 +211,7 @@ export async function updateDateDefinition(
     sort_order,
   } = validatedFields.data
 
-  console.log("Validated Fields:", validatedFields.data)
+  // console.log("Validated Fields:", validatedFields.data)
 
   try {
     await getDb()
