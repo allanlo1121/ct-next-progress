@@ -22,9 +22,10 @@ export function LeftLineCard({ lineData }: { lineData: LineData }) {
   )
 }
 
-function percent(value: number, total: number) {
+function percent(value: number, total: number, digits = 0) {
   if (!total) return "0"
-  return `${Math.round((value / total) * 100)}`
+
+  return ((value / total) * 100).toFixed(digits)
 }
 
 function Metric({
@@ -119,7 +120,7 @@ function ProgressMetric({ progress }: { progress: TbmProgress }) {
       />
       <Metric
         title={completionTitle}
-        value={percent(progress.actual.ringCount, progress.plan)}
+        value={percent(progress.actual.ringCount, progress.plan,1)}
         unit="%"
       />
     </div>

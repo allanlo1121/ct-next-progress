@@ -25,17 +25,15 @@ export default function PlanEditor({
   line: TunnelLine
   initialPlans: PlanInput[]
 }) {
-  const [startDate, setStartDate] = useState(line.scheduled_start_date ?? "")
-
-  const [endDate, setEndDate] = useState(line.scheduled_end_date ?? "")
-
   const totalRingCount =
     line.start_ring != null && line.end_ring != null
       ? line.end_ring - line.start_ring
       : 0
 
   const initialDayCount =
-    startDate && endDate ? getDayCount(startDate, endDate) : 0
+    line.scheduled_start_date && line.scheduled_end_date
+      ? getDayCount(line.scheduled_start_date, line.scheduled_end_date)
+      : 0
 
   const [dailyRingCount, setDailyRingCount] = useState(
     initialDayCount > 0
@@ -94,7 +92,7 @@ export default function PlanEditor({
             plan_ring_count: Number(row.plan_ring_count),
           }))
 
-        // console.log("Sorted plans:", plans)
+         console.log("Sorted plans:", plans)
 
         if (plans.length === 0) {
           toast.add({
@@ -113,7 +111,7 @@ export default function PlanEditor({
         )
 
         if (invalid) {
-          // console.log("Invalid plans detected:", plans)
+           console.log("Invalid plans detected:", plans)
           toast.add({
             title: "导入失败",
             description: "CSV 格式错误，请检查日期和计划环数",
@@ -175,7 +173,7 @@ export default function PlanEditor({
         {line.name || "左线"}-{line?.end_ring - line?.start_ring}环
       </h2>
 
-      <div className="grid w-full grid-cols-2 gap-4 border-4 border-brand-800 p-4 rounded-lg">
+      <div className="grid w-full grid-cols-2 gap-4 rounded-lg border-4 border-brand-800 p-4">
         <div className="flex items-center gap-3">
           <dt className="text-sm text-muted-foreground">计划起止日期</dt>
           <dd className="text-sm font-medium">
@@ -238,9 +236,7 @@ export default function PlanEditor({
           <Button
             type="button"
             onClick={handleSave}
-            disabled={
-              !startDate ||
-              !endDate ||
+            disabled={  
               line.start_ring == null ||
               line.end_ring == null ||
               dailyRingCount <= 0
