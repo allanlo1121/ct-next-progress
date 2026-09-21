@@ -10,8 +10,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { updatePlanAction } from "@/lib/plans/actions"
-import type {PlanInput } from "@/lib/plans/definition"
+import { updatePlanAction } from "@/lib/plan/actions"
+import type {PlanInput } from "@/lib/plan/definition"
 
 import { PlanPopover } from "./plan-popover"
 

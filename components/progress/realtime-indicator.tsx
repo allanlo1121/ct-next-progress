@@ -106,9 +106,9 @@ export function RealtimeIndicator({
         </span>
       </div>
 
-      <span className="text-xs text-muted-foreground">
+      {/* <span className="text-xs text-muted-foreground">
         {label}
-      </span>
+      </span> */}
     </div>
   )
 }

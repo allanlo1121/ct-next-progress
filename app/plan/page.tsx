@@ -1,7 +1,7 @@
-import { fetchTunnelLines } from "@/lib/tunnels/repository"
+import { fetchTunnelLines } from "@/lib/tunnel/repository"
 import { LinkButton } from "@/components/base/link-button"
 import { PageHeader } from "@/components/base/page-header"
-import { fetchPlansByTunnelLineId } from "@/lib/plans/repository"
+import { fetchPlansByTunnelLineId } from "@/lib/plan/repository"
 import PlanEditor from "@/components/plan/plan-edit"
 
 

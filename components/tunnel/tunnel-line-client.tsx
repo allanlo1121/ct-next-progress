@@ -2,8 +2,8 @@
 
 import { TunnelLineDrawer } from "@/components/tunnel/tunnel-line-drawer"
 
-import { TunnelLine } from "@/lib/tunnels/definition"
-import { updateTunnelLine } from "@/lib/tunnels/line-actions"
+import { TunnelLine } from "@/lib/tunnel/definition"
+import { updateTunnelLine } from "@/lib/tunnel/line-actions"
 
 export default function TunnelLineClient({ line }: { line: TunnelLine }) {
   return (

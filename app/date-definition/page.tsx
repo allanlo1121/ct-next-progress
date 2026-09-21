@@ -1,14 +1,14 @@
 import { PageHeader } from "@/components/base/page-header"
 import { LinkButton } from "@/components/base/link-button"
 
-import { fetchDateDefinitions } from "@/lib/date-definitions/repository"
+import { fetchDateDefinitions } from "@/lib/date-definition/repository"
 import { Metadata } from "next"
 import { DateDefinitionCard } from "@/components/date-definitions/date-card"
 import { AddDateDefinitionCard } from "@/components/date-definitions/add-date-definition-card"
 import {
   createDateDefinitionAction,
   updateDateDefinitionAction,
-} from "@/lib/date-definitions/actions"
+} from "@/lib/date-definition/actions"
 
 export const metadata: Metadata = {
   title: "data-definitions",

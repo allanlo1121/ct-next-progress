@@ -19,7 +19,7 @@ import {
   SelectItem,
 } from "@/components/ui/select"
 
-import type { Tunnel } from "@/lib/tunnels/definition"
+import type { Tunnel } from "@/lib/tunnel/definition"
 import { toast } from "@/components/ui/toast"
 import { useRouter } from "next/dist/client/components/navigation"
 import { useState } from "react"

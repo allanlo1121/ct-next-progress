@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import type { TunnelLine } from "@/lib/tunnels/definition"
+import type { TunnelLine } from "@/lib/tunnel/definition"
 import { toast } from "@/components/ui/toast"
 import { useRouter } from "next/dist/client/components/navigation"
 import { useState } from "react"

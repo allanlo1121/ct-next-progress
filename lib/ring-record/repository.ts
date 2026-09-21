@@ -48,56 +48,48 @@ export function getRingCountByTimeRange(
 ): RingCount {
   const startAtIso = startAt.toISOString()
   const endAtIso = endAt.toISOString()
-  // console.log("getRingCountByTimeRange", {
-  //   startAtIso,
-  //   endAtIso,
-  // })
-  const db = getDb()
 
-  const row = db
+  const row = getDb()
     .prepare(
       `
-    SELECT
-      (
-        SELECT ring_no
-        FROM tunnel_ring_records
-        WHERE tunnel_line_id = @tunnelLineId
-          AND start_at IS NOT NULL
-          AND start_at > @startAtIso
-        ORDER BY start_at ASC
-        LIMIT 1
-      ) AS start_ring_no,
+      SELECT
+        (
+          SELECT ring_no
+          FROM tunnel_ring_records
+          WHERE tunnel_line_id = @tunnelLineId
+            AND start_at IS NOT NULL
+            AND start_at <= @startAtIso
+          ORDER BY start_at DESC
+          LIMIT 1
+        ) AS start_ring_no,
 
-      (
-        SELECT ring_no
-        FROM tunnel_ring_records
-        WHERE tunnel_line_id = @tunnelLineId
-          AND start_at IS NOT NULL
-          AND start_at < @endAtIso
-        ORDER BY start_at DESC
-        LIMIT 1
-      ) AS end_ring_no
-  `
+        (
+          SELECT ring_no
+          FROM tunnel_ring_records
+          WHERE tunnel_line_id = @tunnelLineId
+            AND start_at IS NOT NULL
+            AND start_at < @endAtIso
+          ORDER BY start_at DESC
+          LIMIT 1
+        ) AS end_ring_no
+      `
     )
     .get({
       tunnelLineId,
       startAtIso,
       endAtIso,
     }) as {
-    start_ring_no: number | null
-    end_ring_no: number | null
-  }
+      start_ring_no: number | null
+      end_ring_no: number | null
+    }
 
-  const startRingNo = row.start_ring_no
-  const endRingNo = row.end_ring_no
+  const startRingNo = row.start_ring_no ?? 0
+  const endRingNo = row.end_ring_no ?? startRingNo
 
   return {
     startRingNo,
     endRingNo,
-    ringCount:
-      startRingNo !== null && endRingNo !== null
-        ? Math.max(0, endRingNo - startRingNo)
-        : 0,
+    ringCount: Math.max(0, endRingNo - startRingNo),
   }
 }
 

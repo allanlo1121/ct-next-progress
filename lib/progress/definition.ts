@@ -1,4 +1,4 @@
-import { TbmPeriodInfo } from "../date-definitions/definition"
+import { TbmPeriodInfo } from "../date-definition/definition"
 import { RingCount } from "../ring-record/definition"
 
 export type Plan = {

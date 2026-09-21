@@ -12,7 +12,7 @@ import { RingRecordPopover } from "./ring-record-popover"
 import { RingRecord } from "@/lib/ring-record/definition"
 import { ScrollArea } from "../ui/scroll-area"
 import { updateRingRecordAction } from "@/lib/ring-record/actions"
-import { utcToBeijing, getDurationFormat } from "@/lib/date-definitions/utils"
+import { utcToBeijing, getDurationFormat } from "@/lib/date-definition/utils"
 
 export function RingRecordTable({ rings }: { rings: RingRecord[] }) {
   return (

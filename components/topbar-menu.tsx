@@ -15,8 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-
-export  function TopBarMenu() {
+export function TopBarMenu() {
   const pathname = usePathname()
 
   const components = [
@@ -34,63 +33,60 @@ export  function TopBarMenu() {
     },
     {
       title: "统计日期修改",
-      href: "/date-definitions",
+      href: "/date-definition",
     },
     {
       title: "区间修改",
-      href: "/tunnels",
+      href: "/tunnel",
     },
     {
       title: "计划修改",
-      href: "/plans",
+      href: "/plan",
     },
   ]
 
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-9 text-cyan-100 hover:bg-white/10 hover:text-white"
+          >
+            <Menu className="size-5" />
+          </Button>
+        }
+      />
 
-  return (  
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="icon"
-                className="size-9 text-cyan-100 hover:bg-white/10 hover:text-white"
-              >
-                <Menu className="size-5" />
-              </Button>
-            }
-          />
+      <DropdownMenuContent align="start" className="w-52">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>功能菜单</DropdownMenuLabel>
 
-          <DropdownMenuContent align="start" className="w-52">
-            <DropdownMenuGroup>
-              <DropdownMenuLabel>功能菜单</DropdownMenuLabel>
+          <DropdownMenuSeparator />
 
-              <DropdownMenuSeparator />
+          {components.map((item) => {
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href)
 
-              {components.map((item) => {
-                const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href)
-
-                return (
-                  <DropdownMenuItem
-                    key={item.href}
-                    render={
-                      <Link
-                        href={item.href}
-                        className={active ? "font-semibold text-primary" : ""}
-                      >
-                        {item.title}
-                      </Link>
-                    }
-                  />
-                )
-              })}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-  
+            return (
+              <DropdownMenuItem
+                key={item.href}
+                render={
+                  <Link
+                    href={item.href}
+                    className={active ? "font-semibold text-primary" : ""}
+                  >
+                    {item.title}
+                  </Link>
+                }
+              />
+            )
+          })}
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

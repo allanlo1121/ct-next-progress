@@ -1,15 +1,52 @@
 // import { lineData } from "@/lib/progress/data"
+import { cn } from "cn"
 import { jetbrains_mono } from "@/components/ui/fonts"
 import { LineData, TbmProgress } from "@/lib/progress/definition"
 
 import { differenceInDays } from "date-fns/fp/differenceInDays"
-import { getTbmDayInfo } from "@/lib/date-definitions/tbm-data"
+import { getTbmDayInfo } from "@/lib/date-definition/tbm-data"
+import { RealtimeIndicator } from "./realtime-indicator"
 
-export function LeftLineCard({ lineData }: { lineData: LineData }) {
+export type LineCardVariant = "left" | "right"
+
+export function LineCard({
+  lineData,
+  lastReceivedAt,
+  now,
+  timeoutSeconds,
+  variant,
+}: {
+  lineData: LineData
+  lastReceivedAt: number | null
+  now: number
+  timeoutSeconds: number
+  variant: LineCardVariant
+}) {
+  const style = lineCardStyles[variant]
   return (
-    <section className="relative flex h-full min-h-0 flex-row overflow-hidden rounded-2xl border border-sky-400/50 bg-slate-950/55 pb-4">
+    <section
+      className={cn(
+        "relative flex h-full min-h-0 flex-row overflow-hidden rounded-2xl",
+        style.border,
+        "bg-slate-950/55 pb-4"
+      )}
+    >
       {/* <div className="pointer-events-none absolute top-0 -left-20 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl" /> */}
-      <div className="flex w-24 flex-none items-center justify-center bg-linear-to-b from-brand-500 to-cyan-500 bg-clip-text text-7xl font-[900] tracking-[2rem] text-transparent [writing-mode:vertical-rl]">
+      <div className="absolute top-3 left-3 z-10">
+        <RealtimeIndicator
+          label={lineData.line.name}
+          lastReceivedAt={lastReceivedAt}
+          now={now}
+          timeout={timeoutSeconds}
+        />
+      </div>
+      <div
+        className={cn(
+          "flex w-24 flex-none items-center justify-center bg-linear-to-b",
+          style.title,
+          "bg-clip-text text-7xl font-[900] tracking-[2rem] text-transparent [writing-mode:vertical-rl]"
+        )}
+      >
         {lineData.line.name}
       </div>
       <div className="grid flex-1 grid-rows-4 gap-x-4 gap-y-1 p-0">
@@ -120,9 +157,28 @@ function ProgressMetric({ progress }: { progress: TbmProgress }) {
       />
       <Metric
         title={completionTitle}
-        value={percent(progress.actual.ringCount, progress.plan,1)}
+        value={percent(progress.actual.ringCount, progress.plan, 1)}
         unit="%"
       />
     </div>
   )
+}
+
+const lineCardStyles: Record<
+  LineCardVariant,
+  {
+    border: string
+    title: string
+  }
+> = {
+  left: {
+    border:
+      "border-brand-600/50 border outline-4 outline-offset-4 outline-brand-300",
+    title: "from-brand-500 to-cyan-500",
+  },
+  right: {
+    border:
+      "border-industrial-600/50 border outline-4 outline-offset-4 outline-industrial-300",
+    title: "from-emerald-400 to-teal-500",
+  },
 }

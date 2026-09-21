@@ -1,8 +1,8 @@
 "use client"
 
 import { TunnelDrawer } from "@/components/tunnel/tunnel-drawer"
-import { updateTunnel } from "@/lib/tunnels/actions"
-import { Tunnel } from "@/lib/tunnels/definition"
+import { updateTunnel } from "@/lib/tunnel/actions"
+import { Tunnel } from "@/lib/tunnel/definition"
 
 export default function TunnelClient({ tunnel }: { tunnel: Tunnel }) {
   return (

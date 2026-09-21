@@ -1,4 +1,4 @@
-import { fetchTunnelLines } from "@/lib/tunnels/repository"
+import { fetchTunnelLines } from "@/lib/tunnel/repository"
 import { fetchRingRecordsByTunnelLineId } from "@/lib/ring-record/repository"
 
 import { LinkButton } from "@/components/base/link-button"

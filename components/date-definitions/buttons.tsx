@@ -1,6 +1,6 @@
 import { TrashIcon } from "lucide-react"
 
-import { deleteDateDefinitionAction } from "@/lib/date-definitions/actions"
+import { deleteDateDefinitionAction } from "@/lib/date-definition/actions"
 
 // export function CreateDateDefinition() {
 //   return (

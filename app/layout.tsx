@@ -3,8 +3,8 @@ import "./globals.css"
 
 import { noto_sans_sc } from "@/components/ui/fonts"
 import { TopBar } from "@/components/topbar"
-import type { Tunnel } from "@/lib/tunnels/definition"
-import { fetchTunnelById } from "@/lib/tunnels/repository"
+import type { Tunnel } from "@/lib/tunnel/definition"
+import { fetchTunnelById } from "@/lib/tunnel/repository"
 import { FooterBar } from "@/components/footerbar"
 import { Toaster } from "@/components/ui/toast"
 

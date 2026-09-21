@@ -2,8 +2,8 @@
 
 import type Database from "better-sqlite3"
 
-import type { DateDefinition } from "@/lib/date-definitions/schema"
-import { TunnelForm, TunnelLine } from "../tunnels/definition"
+import type { DateDefinition } from "@/lib/date-definition/schema"
+import { TunnelForm, TunnelLine } from "../tunnel/definition"
 
 const now = new Date().toISOString()
 

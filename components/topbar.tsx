@@ -1,8 +1,7 @@
 import { TopBarClock } from "./topbar-clock"
-import { ProgressRealtime } from "./progress/progress-realtime"
 
 import { TopBarMenu } from "./topbar-menu"
-import { Tunnel } from "@/lib/tunnels/definition"
+import { Tunnel } from "@/lib/tunnel/definition"
 
 export async function TopBar({ tunnel }: { tunnel: Tunnel | null }) {
   return (
@@ -10,7 +9,6 @@ export async function TopBar({ tunnel }: { tunnel: Tunnel | null }) {
       {/* 左侧菜单 */}
       <div className="flex flex-1 items-center">
         <TopBarMenu />
-        <ProgressRealtime />
       </div>
 
       {/* 中间标题 */}
@@ -21,9 +19,7 @@ export async function TopBar({ tunnel }: { tunnel: Tunnel | null }) {
 
       {/* 右侧预留 */}
       <div className="flex flex-1 justify-end">
-        
         <TopBarClock />
-         
       </div>
     </header>
   )

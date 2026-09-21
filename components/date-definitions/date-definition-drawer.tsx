@@ -26,7 +26,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { toast } from "@/components/ui/toast"
 
-import type { DateDefinition } from "@/lib/date-definitions/schema"
+import type { DateDefinition } from "@/lib/date-definition/schema"
 
 type DateDefinitionDrawerProps = {
   definition: DateDefinition

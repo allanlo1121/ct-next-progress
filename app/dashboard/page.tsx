@@ -1,8 +1,7 @@
-import { LeftLineCard } from "@/components/progress/left-line-card"
-// import { ProgressRealtime } from "@/components/progress/progress-realtime"
-
-import { RightLineCard } from "@/components/progress/right-line-card"
+import { ProgressRealtime } from "@/components/progress/progress-realtime"
+import { EmptyLineCard } from "@/components/progress/line-card-empty"
 import { fetchLineDataById } from "@/lib/progress/actions"
+import { LineCardVariant } from "@/components/progress/line-card"
 
 export const dynamic = "force-dynamic"
 
@@ -12,15 +11,10 @@ export default async function DashboardPage() {
   const rightLine = await fetchLineDataById(2)
   console.log("Dashboard Right Line:", rightLine)
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-2 gap-8 overflow-hidden bg-[#07111f] bg-dashboard-background p-8 text-foreground">
+    <div className="grid h-full min-h-0 w-full grid-rows-2 gap-8 overflow-hidden bg-[#07111f] bg-dashboard-background p-8 text-foreground ">
       {/* <ProgressRealtime /> */}
-      <div className="min-h-0 overflow-hidden rounded-2xl bg-brand-900 outline-4 outline-offset-2 outline-brand-500 outline-solid">
-        {leftLine && <LeftLineCard lineData={leftLine} />}
-      </div>
-
-      <div className="min-h-0 overflow-hidden rounded-2xl bg-industrial-700 outline-4 outline-offset-2 outline-industrial-500 outline-solid">
-        {rightLine && <RightLineCard lineData={rightLine} />}
-      </div>
+      {leftLine ? <ProgressRealtime line={leftLine} variant="left" /> : <EmptyLineCard />}
+      {rightLine ? <ProgressRealtime line={rightLine} variant="right" /> : <EmptyLineCard />}
     </div>
   )
 }

@@ -1,65 +1,10 @@
 import { getDb } from "@/lib/db"
 import type { LineData } from "./definition"
-import type { DateDefinition } from "@/lib/date-definitions/schema"
+import type { DateDefinition } from "@/lib/date-definition/schema"
 
-import { getLineProgress } from "./data"
+import { getLineProgress } from "./repository"
 
-// export async function fetchLineDatas(): Promise<LineData[]> {
-//   const db = getDb()
 
-//   const lines = db
-//     .prepare(
-//       `
-//       SELECT
-//         tl.id,
-//         t.project_name,
-//         t.name AS tunnel_name,
-//         t.full_name,
-//         t.line_mode,
-//         tl.tunnel_id,
-//         tl.name,
-//         tl.start_ring,
-//         tl.end_ring,
-//         tl.actual_start_date,
-//         tl.actual_end_date,
-//         tl.scheduled_start_date,
-//         tl.scheduled_end_date,
-//         tl.sort_order
-//       FROM tunnel_lines tl
-//       JOIN tunnels t ON t.id = tl.tunnel_id
-//       ORDER BY
-//         t.sort_order ASC,
-//         tl.sort_order ASC
-//     `
-//     )
-//     .all() as LineData["line"][]
-
-//   const now = new Date()
-
-//   const day = getTbmDayInfo(now)
-//   const week = getTbmWeekInfo(now)
-//   const month = getTbmMonthInfo(now)
-//   const quarter = getTbmQuarterInfo(now)
-//   const year = getTbmYearInfo(now)
-
-//   return lines.map((line) => {
-//     return {
-//       line,
-
-//       totalProgress: getLineProgress(line.id, line.actual_start_date, null),
-
-//       dayProgress: getLineProgress(line.id, day.startAt, day.endAt),
-
-//       weekProgress: getLineProgress(line.id, week.startAt, week.endAt),
-
-//       monthProgress: getLineProgress(line.id, month.startAt, month.endAt),
-
-//       quarterProgress: getLineProgress(line.id, quarter.startAt, quarter.endAt),
-
-//       yearProgress: getLineProgress(line.id, year.startAt, year.endAt),
-//     }
-//   })
-// }
 
 export async function fetchLineDataById(
   id: number,
@@ -105,7 +50,7 @@ export async function fetchLineDataById(
 
     totalProgress: getLineProgress(line.id, now, "custom", dateDefintion, {
       label: "total",
-      startDate: line.actual_start_date,
+      startDate: line.scheduled_start_date,
       endDate: line.scheduled_end_date,
     }),
 

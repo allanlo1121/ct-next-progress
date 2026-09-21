@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, GitBranch, MapPinned, Route } from "lucide-react"
-import { fetchTunnelWithLines } from "@/lib/tunnels/repository"
+import { fetchTunnelWithLines } from "@/lib/tunnel/repository"
 
 
 // function formatChainage(value: number | null) {

@@ -1,4 +1,4 @@
-import { fetchTunnelWithLinesById } from "@/lib/tunnels/repository"
+import { fetchTunnelWithLinesById } from "@/lib/tunnel/repository"
 
 import TunnelClient from "@/components/tunnel/tunnel-client"
 import TunnelLineClient from "@/components/tunnel/tunnel-line-client"

@@ -1,12 +1,10 @@
 "use server"
 
 import { getDb } from "../db"
+import { fetchTunnelLinesById } from "../tunnel/repository"
 import { RingRecord, RingRecordInput } from "./definition"
 
-import {
-  updateRingRecordStartAt,
-  updateRingRecordStartAts,
-} from "./repository"
+import { updateRingRecordStartAt, updateRingRecordStartAts } from "./repository"
 
 export async function createRingRecord(
   input: RingRecordInput
@@ -49,27 +47,61 @@ export async function createRingRecord(
 }
 
 export async function upsertRingRecord(input: RingRecordInput) {
+  const line = await fetchTunnelLinesById(input.tunnel_line_id)
+
+  if (!line) {
+    console.warn("Tunnel line not found", {
+      tunnelLineId: input.tunnel_line_id,
+    })
+
+    return
+  }
+
+  if (input.ring_no < line.start_ring || input.ring_no > line.end_ring) {
+    console.warn("Ring number out of range", {
+      tunnelLineId: input.tunnel_line_id,
+      ringNo: input.ring_no,
+      startRing: line.start_ring,
+      endRing: line.end_ring,
+    })
+
+    return
+  }
+
   return getDb()
     .prepare(
       `
       INSERT INTO tunnel_ring_records (
         tunnel_line_id,
         ring_no,
-        start_at
+        start_at,
+        end_at,
+        jue_duration,
+        pin_duration,
+        stop_duration,
+        status,
+        source
       )
       VALUES (
         @tunnel_line_id,
         @ring_no,
-        @start_at
+        @start_at,
+        @end_at,
+        @jue_duration,
+        @pin_duration,
+        @stop_duration,
+        @status,
+        @source
       )
       ON CONFLICT(tunnel_line_id, ring_no)
       DO UPDATE SET
-        start_at = @start_at,
-        end_at = @end_at,
-        jue_duration = @jue_duration,
-        pin_duration = @pin_duration,
-        stop_duration = @stop_duration,
-        status = @status
+        start_at = excluded.start_at,
+        end_at = excluded.end_at,
+        jue_duration = excluded.jue_duration,
+        pin_duration = excluded.pin_duration,
+        stop_duration = excluded.stop_duration,
+        status = excluded.status
+      WHERE tunnel_ring_records.end_at IS NULL
     `
     )
     .run(input)
@@ -201,15 +233,13 @@ export async function updateRingRecordsAction(
 ) {
   try {
     await updateRingRecordStartAts(input)
-     return {
-    success: true,
-  }
+    return {
+      success: true,
+    }
   } catch (error) {
     console.error(`Failed to update ring records:`, error)
     return {
       success: false,
     }
   }
-
- 
 }

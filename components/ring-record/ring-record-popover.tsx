@@ -13,7 +13,7 @@ import {
 import { toast } from "@/components/ui/toast"
 
 import type { RingRecord } from "@/lib/ring-record/definition"
-import { utcToBeijingInput } from "@/lib/date-definitions/utils";
+import { utcToBeijingInput } from "@/lib/date-definition/utils";
 
 type RingRecordPopoverProps = {
   ring: RingRecord
@@ -58,7 +58,7 @@ export function RingRecordPopover({ ring, onSave }: RingRecordPopoverProps) {
     }
   }
 
-  console.log(ring)
+  // console.log(ring)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

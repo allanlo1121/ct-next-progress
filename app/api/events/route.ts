@@ -13,20 +13,12 @@ export async function GET(request: Request) {
   const stream = new ReadableStream({
     start(controller) {
       // 先发一条，确保连接真正建立
-      controller.enqueue(
-        encoder.encode(
-          `event: connected\ndata: {}\n\n`
-        )
-      )
+      controller.enqueue(encoder.encode(`event: connected\ndata: {}\n\n`))
 
       const unsubscribe = subscribe((event) => {
         console.log("Sending SSE event:", event)
 
-        controller.enqueue(
-          encoder.encode(
-            `event: ${event}\ndata: {}\n\n`
-          )
-        )
+        controller.enqueue(encoder.encode(`event: ${event}\ndata: {}\n\n`))
       })
 
       request.signal.addEventListener("abort", () => {
@@ -47,7 +39,7 @@ export async function GET(request: Request) {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
-      "Connection": "keep-alive",
+      Connection: "keep-alive",
       "X-Accel-Buffering": "no",
     },
   })

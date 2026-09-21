@@ -1,7 +1,7 @@
 import { PlanInput } from "./definition"
-import { getDateRange } from "@/lib/date-definitions/utils"
-import type { MonthRange } from "@/lib/date-definitions/utils"
-import { getMonthRanges } from "@/lib/date-definitions/utils"
+import { getDateRange } from "@/lib/date-definition/utils"
+import type { MonthRange } from "@/lib/date-definition/utils"
+import { getMonthRanges } from "@/lib/date-definition/utils"
 
 export function buildPlanDays(params: {
   tunnelLineId: number

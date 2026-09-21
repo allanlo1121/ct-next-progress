@@ -6,7 +6,7 @@ import React, { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import type { TunnelLine } from "@/lib/tunnels/definition"
+import type { TunnelLine } from "@/lib/tunnel/definition"
 
 import type { RingRecord, RingRecordCsvRow } from "@/lib/ring-record/definition"
 
@@ -195,7 +195,7 @@ export default function RingRecordEditor({
   return (
     <div className="flex h-full min-h-0 flex-col rounded-md p-4">
       <h2 className="mb-4 text-lg font-semibold">
-        {line.name || "左线"}-{line?.end_ring - line?.start_ring}环
+        {line.name || "左线"}-{line?.end_ring}环
       </h2>
 
       <div className="grid w-full grid-cols-2 gap-4 rounded-lg border-4 border-brand-800 p-4">

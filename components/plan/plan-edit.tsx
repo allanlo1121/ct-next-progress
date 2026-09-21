@@ -2,18 +2,18 @@
 
 import React, { useState } from "react"
 
-import { getDayCount } from "@/lib/date-definitions/utils"
+import { getDayCount } from "@/lib/date-definition/utils"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 
 
-import type { TunnelLine } from "@/lib/tunnels/definition"
+import type { TunnelLine } from "@/lib/tunnel/definition"
 
-import type { PlanInput } from "@/lib/plans/definition"
+import type { PlanInput } from "@/lib/plan/definition"
 import { PlanTable } from "./plan-table"
-import { savePlans } from "@/lib/plans/actions"
+import { savePlans } from "@/lib/plan/actions"
 import { toast } from "@/components/ui/toast"
 import Papa from "papaparse"
 import { ButtonGroup } from "../ui/button-group"

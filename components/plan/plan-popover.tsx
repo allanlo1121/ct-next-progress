@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover"
 import { toast } from "@/components/ui/toast"
 
-import type {  PlanInput } from "@/lib/plans/definition"
+import type {  PlanInput } from "@/lib/plan/definition"
 
 type PlanPopoverProps = {
   plan: PlanInput

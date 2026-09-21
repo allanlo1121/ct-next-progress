@@ -1,47 +1,4 @@
-import {  TbmPeriodType } from "../date-definitions/definition"
-import type { DateDefinition } from "../date-definitions/schema"
-import { CustomPeriod, getTbmPeriodInfo } from "../date-definitions/tbm-data"
-import { getDb } from "../db"
-import { getPlanRingCount } from "../plans/repository"
-import { getRingCountByTimeRange } from "../ring-record/repository"
-import type { LineData, PlanInput, TbmProgress } from "./definition"
-
-// export async function fetchDateDefinitions(): Promise<DateDefinition[]> {
-//   const rows = getDb()
-//     .prepare(
-//       `
-//       SELECT *
-//       FROM date_definitions
-//       ORDER BY sort_order ASC, name ASC
-//     `
-//     )
-//     .all() as DateDefinition[]
-
-//   return rows.map((row) => ({
-//     ...row,
-//     is_default: row.is_default,
-//   }))
-// }
-
-export async function fetchPlansByTunnelLineId(
-  tunnelLineId: number
-): Promise<PlanInput[]> {
-  return getDb()
-    .prepare(
-      `
-      SELECT
-        tunnel_line_id,
-        work_date,
-        plan_ring_count
-      FROM tunnel_plan_days
-      WHERE tunnel_line_id = @tunnelLineId
-      ORDER BY work_date
-    `
-    )
-    .all({
-      tunnelLineId,
-    }) as PlanInput[]
-}
+import type { LineData } from "./definition"
 
 export const lineData: LineData = {
   line: {
@@ -156,33 +113,4 @@ export const lineData: LineData = {
       ringCount: 85,
     },
   },
-}
-
-export function getLineProgress(
-  tunnelLineId: number,
-  date: Date = new Date(),
-  type: TbmPeriodType,
-  dateDefinition?: DateDefinition,
-  customPeriod?: CustomPeriod
-): TbmProgress {
-  //let datePeriod: TbmPeriodInfo
-  const datePeriod = getTbmPeriodInfo(type, date, dateDefinition, customPeriod)
-
-  const plan = getPlanRingCount(
-    tunnelLineId,
-    datePeriod.startDate,
-    datePeriod.endDate
-  )
-
-  const actual = getRingCountByTimeRange(
-    tunnelLineId,
-    datePeriod.startAt,
-    datePeriod.endAt
-  )
-
-  return {
-    period: datePeriod,
-    plan,
-    actual,
-  }
 }

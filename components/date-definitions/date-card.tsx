@@ -1,7 +1,7 @@
 "use client"
 
 import { DeleteDateDefinition } from "@/components/date-definitions/buttons"
-import type { DateDefinition } from "@/lib/date-definitions/schema"
+import type { DateDefinition } from "@/lib/date-definition/schema"
 import {
   CalendarDays,
   CalendarRange,
